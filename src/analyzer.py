@@ -7,9 +7,12 @@ percentile estimation, and capacity forecasting.
 
 from __future__ import annotations
 
+import logging
 import sqlite3
 from dataclasses import dataclass
 from typing import Any
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -313,8 +316,3 @@ def run_custom_query(db_path: str, sql: str) -> QueryResult:
     rows = cur.fetchall()
     conn.close()
     return QueryResult(name="custom", description="User-defined query", columns=columns, rows=rows)
-
-
-import logging
-
-logger = logging.getLogger(__name__)

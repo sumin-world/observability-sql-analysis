@@ -7,10 +7,11 @@ the same data can be explored with standard SQL.
 
 from __future__ import annotations
 
+import json
 import logging
 import sqlite3
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any
 
 import requests
@@ -105,7 +106,7 @@ def query_range(
     params = {"query": query, "start": start, "end": end, "step": step}
 
     resp = requests.get(url, params=params, timeout=cfg.timeout)
-    resp.raise_for_status()
+    resp.raise_for_status()  # raises requests.HTTPError on 4xx/5xx
 
     body = resp.json()
     if body.get("status") != "success":
@@ -128,8 +129,6 @@ def collect_and_store(
 
     Returns a summary dict with keys ``queries_run`` and ``rows_inserted``.
     """
-    import json
-
     cfg = PrometheusConfig(base_url=prometheus_url)
     queries = queries or DEFAULT_QUERIES
 
@@ -137,9 +136,6 @@ def collect_and_store(
     if not end:
         end = now_iso
     if not start:
-        # Default: last 1 hour
-        from datetime import timedelta
-
         end_dt = datetime.fromisoformat(end.replace("Z", "+00:00"))
         start = (end_dt - timedelta(hours=1)).isoformat()
 
