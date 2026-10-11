@@ -24,7 +24,7 @@ This project bridges the gap — collect with PromQL, analyse with SQL.
                                                   │
                     ┌──────────────┐               │
                     │  Analyzer    │◀──────────────┘
-                    │  (12 SQL     │
+                    │  (11 SQL     │
                     │   queries)   │──────▶ Terminal / JSON
                     └──────────────┘
                     ┌──────────────┐
@@ -60,7 +60,7 @@ python -m src report
 
 ## SQL Analysis Queries
 
-The analyzer includes 12 pre-built SQL queries organised by category:
+The analyzer includes 11 pre-built SQL queries organised by category:
 
 ### Memory Analysis
 | Query | Description |
@@ -163,7 +163,7 @@ observability-sql-analysis/
 │   ├── __main__.py          # python -m src entry point
 │   ├── cli.py               # CLI argument parsing
 │   ├── collector.py         # Prometheus → SQLite ingestion
-│   ├── analyzer.py          # 12 pre-built SQL analysis queries
+│   ├── analyzer.py          # 11 pre-built SQL analysis queries
 │   ├── visualizer.py        # matplotlib chart generation
 │   └── report.py            # Markdown report generator
 ├── tests/
